@@ -1,0 +1,19 @@
+{
+  "name": "aws-rekognition-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/examples.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.488.0",
+    "dotenv": "^8.0.0",
+    "gm": "^1.23.1",
+    "googleapis": "^40.0.1"
+  }
+}

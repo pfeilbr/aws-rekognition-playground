@@ -15,7 +15,7 @@ see [`src/examples.js`](src/examples.js)
     brew install ghostscript
     ```
 
-## Example Labelled Image
+## Example Labelled Image Using [`detectLabels`](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Rekognition.html#detectLabels-property) API
 
 **Source**
 ![](assets/images/city-street.jpg)

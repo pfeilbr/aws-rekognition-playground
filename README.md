@@ -15,6 +15,15 @@ see [`src/examples.js`](src/examples.js)
     brew install ghostscript
     ```
 
+## Example Labelled Image
+
+**Source**
+![](assets/images/city-street.jpg)
+
+**Labelled**
+![](assets/images/city-street.jpg-labelled.jpg)
+
+
 ## Running
 
 `npm start`

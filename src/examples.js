@@ -52,7 +52,7 @@ const detectLabelsExample = async () => {
     }
   }
 
-  const labelledImagePath = `${pathToImage}-labeled.jpg`;
+  const labelledImagePath = `${pathToImage}-labelled.jpg`;
   await util.promisify(gmImage.write).bind(gmImage)(labelledImagePath);
   log(`view labelled image at ${labelledImagePath}`);
 };

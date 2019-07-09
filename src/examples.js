@@ -5,13 +5,12 @@ const fs = require("fs");
 const path = require("path");
 const gm = require("gm");
 
+const log = o => console.log(JSON.stringify(o, null, 2));
 const assetsDirectoryPath = path.join(__dirname, "..", "assets");
 const imagesDirectoryPath = path.join(assetsDirectoryPath, "images");
 const videosDirectoryPath = path.join(assetsDirectoryPath, "videos");
 const imagePath = imageName => path.join(imagesDirectoryPath, imageName);
 const videoPath = videoName => path.join(imagesDirectoryPath, videoName);
-
-const log = o => console.log(JSON.stringify(o, null, 2));
 
 const detectLabelsExample = async () => {
   const pathToImage = imagePath("city-street.jpg");

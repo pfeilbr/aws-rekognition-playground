@@ -6,13 +6,15 @@ const path = require("path");
 const gm = require("gm");
 
 const log = o => console.log(JSON.stringify(o, null, 2));
+const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
+
 const assetsDirectoryPath = path.join(__dirname, "..", "assets");
 const imagesDirectoryPath = path.join(assetsDirectoryPath, "images");
 const videosDirectoryPath = path.join(assetsDirectoryPath, "videos");
 const imagePath = imageName => path.join(imagesDirectoryPath, imageName);
 const videoPath = videoName => path.join(imagesDirectoryPath, videoName);
 
-const detectLabelsExample = async () => {
+const detectLabelsForImageExample = async () => {
   const pathToImage = imagePath("city-street.jpg");
   const resp = await rekognition
     .detectLabels({
@@ -56,6 +58,48 @@ const detectLabelsExample = async () => {
   log(`view labelled image at ${labelledImagePath}`);
 };
 
+const detectTextInImageExample = async () => {
+  const pathToImage = imagePath("book-cover.jpg");
+  const resp = await rekognition
+    .detectText({
+      Image: {
+        Bytes: fs.readFileSync(pathToImage)
+      }
+    })
+    .promise();
+  //log(resp);
+
+  const gmImage = gm(pathToImage);
+
+  const imageSize = await util.promisify(gmImage.size).bind(gmImage)();
+  //log(`image size: ${JSON.stringify(imageSize)}`);
+
+  for (const textDetection of resp.TextDetections) {
+    const box = textDetection.Geometry.BoundingBox;
+    //log(`instance.BoundingBox: ${JSON.stringify(box)}`);
+    const rect = {
+      x0: box.Left * imageSize.width,
+      y0: box.Top * imageSize.height,
+      x1: box.Left * imageSize.width + box.Width * imageSize.width,
+      y1: box.Top * imageSize.height + box.Height * imageSize.height
+    };
+    //log(`rect: ${JSON.stringify(rect)}`);
+    gmImage
+      .stroke("red", 1)
+      .fill("none")
+      .drawRectangle(rect.x0, rect.y0, rect.x1, rect.y1)
+      .fontSize(18)
+      .stroke("white")
+      .strokeWidth(1)
+      .drawText(rect.x0, rect.y0, textDetection.DetectedText);
+  }
+
+  const labelledImagePath = `${pathToImage}-labelled.jpg`;
+  await util.promisify(gmImage.write).bind(gmImage)(labelledImagePath);
+  log(`view labelled image at ${labelledImagePath}`);
+};
+
 (async () => {
-  await detectLabelsExample();
+  //await detectLabelsForImageExample();
+  await detectTextInImageExample();
 })();

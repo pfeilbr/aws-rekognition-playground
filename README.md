@@ -24,6 +24,15 @@ see [`src/examples.js`](src/examples.js)
 ![](assets/images/city-street.jpg-labelled.jpg)
 
 
+## Example Labelled Image Using [`detectText`](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Rekognition.html#detectText-property) API
+
+**Source**
+![](assets/images/book-cover.jpg)
+
+**Labelled**
+![](assets/images/book-cover.jpg-labelled.jpg)
+
+
 ## Running
 
 ```sh
